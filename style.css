@@ -1,0 +1,333 @@
+/* 
+  This section sets up the root variables to manage the carousel and item sizes dynamically, 
+  and ensures vertical scrolling when needed.
+*/
+:root {
+  --item-size: 60px;
+  --carousel-size: 300px;
+  --item-count: 4;
+  overflow-y: auto;
+}
+
+/* 
+  This block defines the base styles for the body and html elements. It ensures that the content 
+  spans the entire height of the viewport, removes default margins, and uses flexbox to align 
+  content in the center with a black background and a clean, modern font.
+*/
+body, html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: black;
+  font-family: Arial, sans-serif;
+}
+
+/* 
+  This section manages the background particles animation, which covers the entire viewport. 
+  It's positioned behind all other elements (with z-index: -1).
+*/
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: -1;
+}
+
+/* 
+  This block defines the container for the carousel. It centers the carousel both horizontally 
+  and vertically within the page.
+*/
+.carousel-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* 
+  This section styles the carousel itself. It is positioned at the center of its container, 
+  with a dynamically calculated angle step based on the number of items. 
+  It sets the carousel size based on root variables.
+*/
+.carousel {
+  position: relative;
+  width: var(--carousel-size);
+  height: var(--carousel-size);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  --angle-step: calc(360deg / var(--item-count));
+}
+
+/* 
+  This block handles the positioning and appearance of each carousel item. 
+  Items are placed in a circular layout, with a central transform-origin to manage their 
+  rotation and positioning around the carousel.
+*/
+.carousel-item {
+  position: absolute;
+  width: var(--item-size);
+  height: var(--item-size);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #020202;
+  transform-origin: 50% calc(-1 * var(--carousel-size) / 2 + var(--item-size) / 2);
+  margin-top: 200px;
+}
+
+/* 
+  Defines the appearance and behavior of the content within each carousel item. 
+  The content is centered, circular, and has a white border.
+*/
+.item-content {
+  transform: rotate(0deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  color: #ffffff;
+  font-size: 24px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+}
+
+/* 
+  Styles the links within the carousel items, adding a transition effect for when 
+  the links are hovered over.
+*/
+.item-content a {
+  color: #fcfbfb;
+  transition: color 0.3s;
+  text-align: center;
+}
+
+/* 
+  Adds custom styling for GitHub icons within the carousel, enlarging them for visibility.
+*/
+.item-content a .fab.fa-github {
+  font-size: 28px;
+}
+
+/* 
+  This block styles the central image within the carousel, ensuring it's positioned correctly, 
+  circular in shape, and has a white border. The image fills its container without distortion.
+*/
+.center-image {
+  position: absolute;
+  width: 180px; /* Adjust size as needed */
+  height: 180px; /* Adjust size as needed */
+  top: 75%;
+  left: 175px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid white;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 
+  Ensures the central image fills its container with proper scaling, maintaining the aspect ratio.
+*/
+.center-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 
+  Defines the layout for the main content below the carousel, centering it on the page 
+  and constraining its width for readability.
+*/
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  max-width: 800px;
+  margin-top: 150px;
+}
+
+/* 
+  Styles for sections like 'About Me' and other content boxes. 
+  These are given a dark background, white text, rounded corners, and a subtle shadow for depth.
+*/
+.about-me, .box {
+  background-color: #333;
+  color: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+/* 
+  Styling for headers within content boxes, ensuring proper spacing from the top.
+*/
+.box h2 {
+  margin-top: 0;
+}
+
+/* 
+  List styling within content boxes, removing default bullets and spacing.
+*/
+.box ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* 
+  Defines how list items within boxes are displayed, adding margin and aligning content.
+*/
+.box ul li {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+/* 
+  Ensures that images within list items are appropriately sized and spaced from text.
+*/
+.box ul li img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* 
+  Ensures text within list items is properly aligned with images.
+*/
+.box ul li span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* 
+  Responsive styling for smaller screens (max-width: 768px). 
+  It adjusts the size of the carousel, items, and central image for better fit on mobile devices.
+*/
+@media (max-width: 768px) {
+  :root {
+    --carousel-size: 200px;
+    --item-size: 40px;
+  }
+
+  .carousel {
+    width: var(--carousel-size);
+    height: var(--carousel-size);
+  }
+
+  .carousel-item {
+    width: 60px;
+    height: 60px;
+    left: 80px;
+    top: 60px;
+  }
+
+  .item-content {
+    font-size: 18px;
+    border-width: 1px;
+  }
+
+  .center-image {
+    width: 90px;
+    height: 90px;
+    top: 180px;
+    left: 110px;
+  }
+
+  .main-content {
+    width: 100%;
+  }
+
+  .about-me, .box {
+    width: 90%;
+  }
+}
+
+/* General project section styles */
+.box {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  margin: 20px auto;
+}
+
+/* Styling for the projects container */
+.projects-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Each column takes 48% of the width to create two columns */
+.project-column {
+  flex: 0 0 48%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between each project */
+}
+
+/* Individual project block styling */
+.project {
+  background-color: #444;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.project strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.project span {
+  display: block;
+  margin-bottom: 10px;
+  color: #ADFF2F;
+}
+
+.project p {
+  margin: 0;
+}
+
+.project ul {
+  list-style-type: disc; /* Keep the bullet points */
+  margin-left: 20px; /* Adds space to the left for bullets */
+  padding-left: 0; /* Reset padding so the bullet appears correctly */
+}
+
+.project li {
+  margin-bottom: 10px; /* Adds space between bullet points */
+  color: #fff; /* Ensures the text color is white */
+  line-height: 1.6; /* Space between lines */
+}
+
+
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .projects-container {
+      flex-direction: column;
+  }
+  
+  .project-column {
+      flex: 0 0 100%;
+  }
+}
